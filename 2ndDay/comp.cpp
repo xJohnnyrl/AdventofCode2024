@@ -18,9 +18,10 @@ int main(){
         int dir = -1;
         int curr;
         int last = -1;
-        int valid = 0;
+        int err = 0;
 
         while (iss >> curr){
+            cout << curr << endl;
             if (dir == -1 && last == -1){
                 last = curr;
                 continue;
@@ -32,36 +33,38 @@ int main(){
 
             if (dir == 1){
                 if (curr < last || curr == last){
-                    valid = 0;
-                    break;
+                    err += 1;
+                    if (err > 1) break;
                 }
 
                 if (curr - last > 3){
-                    valid = 0;
-                    break;
+                    err += 1;
+                    if (err > 1) break;
                 }
 
-                valid = 1;
             }
 
             if (dir == 0){
                 if (curr > last || curr == last){
-                    valid = 0;
-                    break;
+                    err += 1;
+                    if (err > 1) break;
                 }
 
                 if (last - curr > 3){
-                    valid = 0;
-                    break;
+                    err += 1;
+                    if (err > 1) break;
                 }
 
-                valid = 1;
             }
 
             last = curr;
         }
 
-        output += valid;
+        if (err > 1){
+            output += 0;
+        } else {
+            output += 1;
+        }
     }
 
     cout << output << endl;
